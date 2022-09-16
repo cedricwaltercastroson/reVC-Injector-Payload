@@ -10,6 +10,8 @@ Cheats:
 
 Numpad0 - Initializes the pointers based on static pointers and offsets found via Cheat Engine 
 (yes it is still pretty good tool to have instead of reverse engineering the binary which takes time)
+        - This enables godmode(health and armor won't go down), money(always max money), 
+        higher fps hack(changes the internal render value from 30 to 165 *my monitor's refresh rate..*)
 
 Numpad1 - triggers aspirine cheat via keystroke method that will send inputs as if you were typing them via keycombo but instead with 1 button.
 
