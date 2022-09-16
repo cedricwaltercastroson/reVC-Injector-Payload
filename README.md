@@ -12,7 +12,9 @@ Numpad0 - Initializes the pointers based on static pointers and offsets found vi
 (yes it is still pretty good tool to have instead of reverse engineering the binary which takes time)
 
 Numpad1 - triggers aspirine cheat via keystroke method that will send inputs as if you were typing them via keycombo but instead with 1 button.
+
 Numpad2 - triggers bigbang cheat via keystroke method that will send inputs as if you were typing them via keycombo but instead with 1 button.
+
 Numpad3 - triggers leavemealone cheat via keystroke method that will send inputs as if you were typing them via keycombo but instead with 1 button.
 
 Anyways I couldn't be bothered adding all the cheats and if you look at the code how I did it, it is very tedious..
