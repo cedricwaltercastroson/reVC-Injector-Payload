@@ -50,11 +50,11 @@ struct loaded_game_resource {
 };
 
 struct money_resource {
-	int MONEY;
+	unsigned long int MONEY;
 };
 
 struct fps {
-	int FPS;
+	unsigned int FPS;
 };
 
 struct memory_ptr {
@@ -131,13 +131,13 @@ void FIXFPS() {
 
 DWORD WINAPI MainThread(LPVOID param) {
 	while (true) {
-		if (GetAsyncKeyState(VK_NUMPAD0) & 0x80000) {  //enables the goodstuff.. godmode, higher fps, money
+		if (GetAsyncKeyState(0xC0) & 0x80000) {  //enables the goodstuff.. godmode, higher fps, money
 			if (fps_hack == NULL) {
 				init_pointers();
 				Beep(1000, 500);
 			}
 		}
-		if (GetAsyncKeyState(VK_NUMPAD1) & 0x80000) {  // triggers health refill via key combo.. redundant but mainly used to fix vehicles..
+		if (GetAsyncKeyState(0x31) & 0x80000) {  // triggers health refill via key combo.. redundant but mainly used to fix vehicles..
 			
 			const int max_input = 16;
 
@@ -203,66 +203,7 @@ DWORD WINAPI MainThread(LPVOID param) {
 			UINT uS = SendInput(max_input, in, sizeof(INPUT));
 
 		}
-		if (GetAsyncKeyState(VK_NUMPAD2) & 0x80000) {  //bigbang cheat triggers a keycombo..
-
-			const int max_input = 14;
-
-			INPUT in[max_input] = {};
-			ZeroMemory(in, sizeof(in));
-
-			in[0].type = INPUT_KEYBOARD;
-			in[0].ki.wVk = B;
-
-			in[1].type = INPUT_KEYBOARD;
-			in[1].ki.wVk = B;
-			in[1].ki.dwFlags = KEYEVENTF_KEYUP;
-
-			in[2].type = INPUT_KEYBOARD;
-			in[2].ki.wVk = I;
-
-			in[3].type = INPUT_KEYBOARD;
-			in[3].ki.wVk = I;
-			in[3].ki.dwFlags = KEYEVENTF_KEYUP;
-
-			in[4].type = INPUT_KEYBOARD;
-			in[4].ki.wVk = G;
-
-			in[5].type = INPUT_KEYBOARD;
-			in[5].ki.wVk = G;
-			in[5].ki.dwFlags = KEYEVENTF_KEYUP;
-
-			in[6].type = INPUT_KEYBOARD;
-			in[6].ki.wVk = B;
-
-			in[7].type = INPUT_KEYBOARD;
-			in[7].ki.wVk = B;
-			in[7].ki.dwFlags = KEYEVENTF_KEYUP;
-
-			in[8].type = INPUT_KEYBOARD;
-			in[8].ki.wVk = A;
-
-			in[9].type = INPUT_KEYBOARD;
-			in[9].ki.wVk = A;
-			in[9].ki.dwFlags = KEYEVENTF_KEYUP;
-
-			in[10].type = INPUT_KEYBOARD;
-			in[10].ki.wVk = N;
-
-			in[11].type = INPUT_KEYBOARD;
-			in[11].ki.wVk = N;
-			in[11].ki.dwFlags = KEYEVENTF_KEYUP;
-
-			in[12].type = INPUT_KEYBOARD;
-			in[12].ki.wVk = G;
-
-			in[13].type = INPUT_KEYBOARD;
-			in[13].ki.wVk = G;
-			in[13].ki.dwFlags = KEYEVENTF_KEYUP;
-
-			UINT uS = SendInput(max_input, in, sizeof(INPUT));
-
-		}
-		if (GetAsyncKeyState(VK_NUMPAD3) & 0x80000) {  //LeaveMeAlone Cheat! very helpful when you want things to cooldown..
+		if (GetAsyncKeyState(0x32) & 0x80000) {  //LeaveMeAlone Cheat! very helpful when you want things to cooldown..
 
 			const int max_input = 24;
 
@@ -352,6 +293,65 @@ DWORD WINAPI MainThread(LPVOID param) {
 			in[23].type = INPUT_KEYBOARD;
 			in[23].ki.wVk = E;
 			in[23].ki.dwFlags = KEYEVENTF_KEYUP;
+
+			UINT uS = SendInput(max_input, in, sizeof(INPUT));
+
+		}
+		if (GetAsyncKeyState(0x33) & 0x80000) {  //bigbang cheat triggers a keycombo..
+
+			const int max_input = 14;
+
+			INPUT in[max_input] = {};
+			ZeroMemory(in, sizeof(in));
+
+			in[0].type = INPUT_KEYBOARD;
+			in[0].ki.wVk = B;
+
+			in[1].type = INPUT_KEYBOARD;
+			in[1].ki.wVk = B;
+			in[1].ki.dwFlags = KEYEVENTF_KEYUP;
+
+			in[2].type = INPUT_KEYBOARD;
+			in[2].ki.wVk = I;
+
+			in[3].type = INPUT_KEYBOARD;
+			in[3].ki.wVk = I;
+			in[3].ki.dwFlags = KEYEVENTF_KEYUP;
+
+			in[4].type = INPUT_KEYBOARD;
+			in[4].ki.wVk = G;
+
+			in[5].type = INPUT_KEYBOARD;
+			in[5].ki.wVk = G;
+			in[5].ki.dwFlags = KEYEVENTF_KEYUP;
+
+			in[6].type = INPUT_KEYBOARD;
+			in[6].ki.wVk = B;
+
+			in[7].type = INPUT_KEYBOARD;
+			in[7].ki.wVk = B;
+			in[7].ki.dwFlags = KEYEVENTF_KEYUP;
+
+			in[8].type = INPUT_KEYBOARD;
+			in[8].ki.wVk = A;
+
+			in[9].type = INPUT_KEYBOARD;
+			in[9].ki.wVk = A;
+			in[9].ki.dwFlags = KEYEVENTF_KEYUP;
+
+			in[10].type = INPUT_KEYBOARD;
+			in[10].ki.wVk = N;
+
+			in[11].type = INPUT_KEYBOARD;
+			in[11].ki.wVk = N;
+			in[11].ki.dwFlags = KEYEVENTF_KEYUP;
+
+			in[12].type = INPUT_KEYBOARD;
+			in[12].ki.wVk = G;
+
+			in[13].type = INPUT_KEYBOARD;
+			in[13].ki.wVk = G;
+			in[13].ki.dwFlags = KEYEVENTF_KEYUP;
 
 			UINT uS = SendInput(max_input, in, sizeof(INPUT));
 
