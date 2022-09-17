@@ -34,17 +34,17 @@
 #define Y 0x59
 #define Z 0x5A
 
-float MAX_HP = 100.0f;
-float MAX_ARMOUR = 100.0f;
+float MAX_HP = 200.0f;
+float MAX_ARMOUR = 200.0f;
 unsigned long int MAX_MONEY= 999999999;
-unsigned int MAX_FPS = 165;
+unsigned int MAX_FPS = 300;
 
-struct resource1 {
+struct new_game_resource {
 	float HP;
 	float ARMOUR;
 };
 
-struct resource2 {
+struct loaded_game_resource {
 	float HP;
 	float ARMOUR;
 };
@@ -63,28 +63,16 @@ struct memory_ptr {
 	int offsets[];
 };
 
-memory_ptr hp_hack_ptr = {
+memory_ptr new_game_resource_hack_ptr = {
 		0x002F608C,
 			1,
 	{0x354}
 };
 
-memory_ptr armour_hack_ptr = {
-		0x002F608C,
-			1,
-	{0x358}
-};
-
-memory_ptr loaded_hp_hack_ptr = {
+memory_ptr loaded_game_resource_hack_ptr = {
 		0x002F6014,
 			1,
 	{0x354}
-};
-
-memory_ptr loaded_armour_hack_ptr = {
-		0x002F6014,
-			1,
-	{0x358}
 };
 
 memory_ptr money_hack_ptr = {
@@ -100,8 +88,8 @@ memory_ptr fps_hack_ptr = {
 };
 
 //pointer to resource struct
-resource1* resource_hack1;
-resource2* resource_hack2;
+new_game_resource* new_game_resource_hack;
+loaded_game_resource* loaded_game_resource_hack;
 money_resource* money_resource_hack;
 fps* fps_hack;
 
@@ -120,19 +108,17 @@ DWORD* trace_pointer(memory_ptr* hack) {
 }
 
 void init_pointers() {
-	resource_hack1 = (resource1*)(trace_pointer(&hp_hack_ptr));
-	resource_hack1 = (resource1*)(trace_pointer(&armour_hack_ptr));
-	resource_hack2 = (resource2*)(trace_pointer(&loaded_hp_hack_ptr));
-	resource_hack2 = (resource2*)(trace_pointer(&loaded_armour_hack_ptr));
+	new_game_resource_hack = (new_game_resource*)(trace_pointer(&new_game_resource_hack_ptr));
+	loaded_game_resource_hack = (loaded_game_resource*)(trace_pointer(&loaded_game_resource_hack_ptr));
 	money_resource_hack = (money_resource*)(trace_pointer(&money_hack_ptr));
 	fps_hack = (fps*)(trace_pointer(&fps_hack_ptr));
 }
 
 void GODMODE() {
-	resource_hack1->HP = (float)MAX_HP;
-	resource_hack1->ARMOUR = (float)MAX_ARMOUR;
-	resource_hack2->HP = (float)MAX_HP;
-	resource_hack2->ARMOUR = (float)MAX_ARMOUR;
+	new_game_resource_hack->HP = (float)MAX_HP;
+	new_game_resource_hack->ARMOUR = (float)MAX_ARMOUR;
+	loaded_game_resource_hack->HP = (float)MAX_HP;
+	loaded_game_resource_hack->ARMOUR = (float)MAX_ARMOUR;
 }
 
 void IHAVETHEMONEYSONNY() {
@@ -370,7 +356,7 @@ DWORD WINAPI MainThread(LPVOID param) {
 			UINT uS = SendInput(max_input, in, sizeof(INPUT));
 
 		}
-		if (resource_hack1 != NULL || resource_hack2 != NULL || money_resource_hack != NULL || fps_hack != NULL) {  //this gets triggered when the pointers are valid via pressing Numpad0
+		if (new_game_resource_hack != NULL || loaded_game_resource_hack != NULL || money_resource_hack != NULL || fps_hack != NULL) {  //this gets triggered when the pointers are valid via pressing Numpad0
 			GODMODE();
 			IHAVETHEMONEYSONNY();
 			FIXFPS();
@@ -383,7 +369,7 @@ DWORD WINAPI MainThread(LPVOID param) {
 BOOL APIENTRY DllMain(HINSTANCE hInstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 	if (fdwReason == DLL_PROCESS_ATTACH) {
 		CreateThread(0, 0, MainThread, hInstDLL, 0, 0);
-		Beep(1000, 1000);
+		Beep(1000, 750);
 	}
 	return true;
 }
