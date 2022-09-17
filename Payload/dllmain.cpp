@@ -131,13 +131,13 @@ void FIXFPS() {
 
 DWORD WINAPI MainThread(LPVOID param) {
 	while (true) {
-		if (GetAsyncKeyState(0xC0) & 0x80000) {  //enables the goodstuff.. godmode, higher fps, money
+		if (GetAsyncKeyState(0xC0) & 1) {  //enables the goodstuff.. godmode, higher fps, money
 			if (fps_hack == NULL) {
 				init_pointers();
 				Beep(1000, 500);
 			}
 		}
-		if (GetAsyncKeyState(0x31) & 0x80000) {  // triggers health refill via key combo.. redundant but mainly used to fix vehicles..
+		if (GetAsyncKeyState(0x31) & 1) {  // triggers health refill via key combo.. redundant but mainly used to fix vehicles..
 			
 			const int max_input = 16;
 
@@ -203,7 +203,7 @@ DWORD WINAPI MainThread(LPVOID param) {
 			UINT uS = SendInput(max_input, in, sizeof(INPUT));
 
 		}
-		if (GetAsyncKeyState(0x32) & 0x80000) {  //LeaveMeAlone Cheat! very helpful when you want things to cooldown..
+		if (GetAsyncKeyState(0x32) & 1) {  //LeaveMeAlone Cheat! very helpful when you want things to cooldown..
 
 			const int max_input = 24;
 
@@ -297,7 +297,7 @@ DWORD WINAPI MainThread(LPVOID param) {
 			UINT uS = SendInput(max_input, in, sizeof(INPUT));
 
 		}
-		if (GetAsyncKeyState(0x33) & 0x80000) {  //bigbang cheat triggers a keycombo..
+		if (GetAsyncKeyState(0x33) & 1) {  //bigbang cheat triggers a keycombo..
 
 			const int max_input = 14;
 
