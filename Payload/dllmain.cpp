@@ -36,6 +36,7 @@
 
 float MAX_HP = 200.0f;
 float MAX_ARMOUR = 200.0f;
+float MAX_CAR_HP = 1000.0f;
 unsigned long int MAX_MONEY= 999999999;
 unsigned int MAX_FPS = 300;
 
@@ -47,6 +48,10 @@ struct new_game_resource {
 struct loaded_game_resource {
 	float HP;
 	float ARMOUR;
+};
+
+struct car_resource {
+	float CAR_HP;
 };
 
 struct money_resource {
@@ -75,6 +80,12 @@ memory_ptr loaded_game_resource_hack_ptr = {
 	{0x354}
 };
 
+memory_ptr car_resource_hack_ptr = {
+		0x004AC5B8,
+			1,
+	{0x204}
+};
+
 memory_ptr money_hack_ptr = {
 		0x00523CE0,
 			0,
@@ -90,6 +101,7 @@ memory_ptr fps_hack_ptr = {
 //pointer to resource struct
 new_game_resource* new_game_resource_hack;
 loaded_game_resource* loaded_game_resource_hack;
+car_resource* car_resource_hack;
 money_resource* money_resource_hack;
 fps* fps_hack;
 
@@ -110,6 +122,7 @@ DWORD* trace_pointer(memory_ptr* hack) {
 void init_pointers() {
 	new_game_resource_hack = (new_game_resource*)(trace_pointer(&new_game_resource_hack_ptr));
 	loaded_game_resource_hack = (loaded_game_resource*)(trace_pointer(&loaded_game_resource_hack_ptr));
+	car_resource_hack = (car_resource*)(trace_pointer(&car_resource_hack_ptr));
 	money_resource_hack = (money_resource*)(trace_pointer(&money_hack_ptr));
 	fps_hack = (fps*)(trace_pointer(&fps_hack_ptr));
 }
@@ -122,6 +135,10 @@ void NEW_GODMODE() {
 void LOADED_GODMODE() {
 	loaded_game_resource_hack->HP = (float)MAX_HP;
 	loaded_game_resource_hack->ARMOUR = (float)MAX_ARMOUR;
+}
+
+void CARGODMODE() {
+	car_resource_hack->CAR_HP = (float)MAX_CAR_HP;
 }
 
 void IHAVETHEMONEYSONNY() {
@@ -377,9 +394,13 @@ DWORD WINAPI MainThread(LPVOID param) {
 				LOADED_GODMODE();
 			}
 		}
+		if (car_resource_hack != NULL) {
+			if (!car_resource_hack->CAR_HP <= 0) {
+				CARGODMODE();
+			}
+		}
 		if (money_resource_hack != NULL) {
-			if (money_resource_hack->MONEY != MAX_MONEY)
-			{
+			if (money_resource_hack->MONEY != MAX_MONEY){
 				IHAVETHEMONEYSONNY();
 			}
 		}
