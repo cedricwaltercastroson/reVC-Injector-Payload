@@ -114,9 +114,12 @@ void init_pointers() {
 	fps_hack = (fps*)(trace_pointer(&fps_hack_ptr));
 }
 
-void GODMODE() {
+void NEW_GODMODE() {
 	new_game_resource_hack->HP = (float)MAX_HP;
 	new_game_resource_hack->ARMOUR = (float)MAX_ARMOUR;
+}
+
+void LOADED_GODMODE() {
 	loaded_game_resource_hack->HP = (float)MAX_HP;
 	loaded_game_resource_hack->ARMOUR = (float)MAX_ARMOUR;
 }
@@ -356,10 +359,34 @@ DWORD WINAPI MainThread(LPVOID param) {
 			UINT uS = SendInput(max_input, in, sizeof(INPUT));
 
 		}
-		if (new_game_resource_hack != NULL || loaded_game_resource_hack != NULL || money_resource_hack != NULL || fps_hack != NULL) {  //this gets triggered when the pointers are valid via pressing Numpad0
-			GODMODE();
-			IHAVETHEMONEYSONNY();
-			FIXFPS();
+
+		//these gets triggered when the pointers are valid via pressing `~
+		if (new_game_resource_hack != NULL) {
+			if (new_game_resource_hack->HP < MAX_HP && new_game_resource_hack->HP > 0) {
+				NEW_GODMODE();
+			}
+			else if (new_game_resource_hack->ARMOUR < MAX_ARMOUR && new_game_resource_hack->HP > 0) {
+				NEW_GODMODE();
+			}
+		}
+		if (loaded_game_resource_hack != NULL) {
+			if (loaded_game_resource_hack->HP < MAX_HP && loaded_game_resource_hack->HP > 0) {
+				LOADED_GODMODE();
+			}
+			else if (loaded_game_resource_hack->ARMOUR < MAX_ARMOUR && loaded_game_resource_hack->HP > 0) {
+				LOADED_GODMODE();
+			}
+		}
+		if (money_resource_hack != NULL) {
+			if (money_resource_hack->MONEY != MAX_MONEY)
+			{
+				IHAVETHEMONEYSONNY();
+			}
+		}
+		if (fps_hack != NULL) {
+			if (fps_hack->FPS != MAX_FPS) {
+				FIXFPS();
+			}
 		}
 	}
 	return 0;
